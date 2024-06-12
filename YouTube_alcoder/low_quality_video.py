@@ -13,7 +13,7 @@ class LowQualityVideoWindow(qt.QDialog):
         self.vw=QVideoWidget()
         self.ao=QAudioOutput()
         self.mp.setAudioOutput(self.ao)
-        self.mp.setVideoOutput(self.vw)        
+        self.mp.setVideoOutput(self.vw)                
         qt1.QShortcut("escape",self).activated.connect(self.stop_exit)
         qt1.QShortcut("home",self).activated.connect(lambda: self.mp.stop())
         qt1.QShortcut("space", self).activated.connect(self.play)

@@ -13,7 +13,8 @@ class LowQualityVideoWindow(qt.QDialog):
         self.vw=QVideoWidget()
         self.ao=QAudioOutput()
         self.mp.setAudioOutput(self.ao)
-        self.mp.setVideoOutput(self.vw)
+        self.mp.setVideoOutput(self.vw)        
+        qt1.QShortcut("escape",self).activated.connect(self.stop_exit)
         qt1.QShortcut("home",self).activated.connect(lambda: self.mp.stop())
         qt1.QShortcut("space", self).activated.connect(self.play)
         qt1.QShortcut("alt+right", self).activated.connect(lambda: self.mp.setPosition(self.mp.position() + 5000))
@@ -50,6 +51,9 @@ class LowQualityVideoWindow(qt.QDialog):
         layout.addWidget(self.المدة)
         self.setLayout(layout)
         self.play_video(url)
+    def stop_exit(self):
+        self.close()
+        self.mp.stop()
     def play_video(self, url):    
         ydl_opts = {
             'format': 'worst',

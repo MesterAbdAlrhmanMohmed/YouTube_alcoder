@@ -54,8 +54,7 @@ class tab1(qt.QWidget):
         self.بدء.setDefault(True)
         self.بدء.clicked.connect(self.results)
         self.النتيجة=qt.QListWidget()
-        self.النتيجة.setAccessibleName("نتائج البحث")
-        self.النتيجة.clicked.connect(self.player)
+        self.النتيجة.setAccessibleName("نتائج البحث")                
         self.النتيجة.verticalScrollBar().valueChanged.connect(self.load_more_results)
         self.النتيجة.setContextMenuPolicy(qt2.Qt.ContextMenuPolicy.CustomContextMenu)        
         self.النتيجة.customContextMenuRequested.connect(self.player)        
@@ -187,7 +186,7 @@ class tab1(qt.QWidget):
             صوت_ضعيف.triggered.connect(lambda: self.open_window('low_quality_audio'))
             رابط.triggered.connect(self.copy_link)
             الوصف.triggered.connect(self.show_video_description)
-            التعليقات.triggered.connect(self.get_video_comments)
+            التعليقات.triggered.connect(self.get_video_comments)                        
         elif فئة_البحث == "قوائم التشغيل":
             رابط_القائمة = القائمة.addAction("نسخ رابط قائمة التشغيل")
             فتح_القائمة = القائمة.addAction("عرض فيديوهات قائمة التشغيل")

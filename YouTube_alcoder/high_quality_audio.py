@@ -10,7 +10,8 @@ class HighQualityAudioWindow(qt.QDialog):
         self.resize(400, 200)
         self.mp=QMediaPlayer()
         self.ao=QAudioOutput()
-        self.mp.setAudioOutput(self.ao)
+        self.mp.setAudioOutput(self.ao)        
+        qt1.QShortcut("escape",self).activated.connect(self.stop_exit)
         qt1.QShortcut("home",self).activated.connect(lambda: self.mp.stop())
         qt1.QShortcut("space", self).activated.connect(self.play)
         qt1.QShortcut("alt+right", self).activated.connect(lambda: self.mp.setPosition(self.mp.position() + 5000))
@@ -44,8 +45,11 @@ class HighQualityAudioWindow(qt.QDialog):
         layout=qt.QVBoxLayout()
         layout.addWidget(self.التقدم)
         layout.addWidget(self.المدة)
-        self.setLayout(layout)
+        self.setLayout(layout)        
         self.play_audio(url)
+    def stop_exit(self):
+        self.close()
+        self.mp.stop()
     def play_audio(self, url):
         ydl_opts = {
             'format': 'worstaudio',

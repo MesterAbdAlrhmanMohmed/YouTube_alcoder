@@ -4,14 +4,14 @@ from PyQt6 import QtCore as qt2
 from pytube import YouTube
 import requests
 class YoutubeObjects(qt2.QObject):
-    Finish=qt2.pyqtSignal(bool)
+    Finish = qt2.pyqtSignal(bool)
 class YoutubeThread(qt2.QRunnable):
     def __init__(self, url, path, progress_bar):
         super().__init__()
-        self.objects=YoutubeObjects()
-        self.url=url
-        self.path=path
-        self.progress_bar=progress_bar
+        self.objects = YoutubeObjects()
+        self.url = url
+        self.path = path
+        self.progress_bar = progress_bar
     def run(self):
         try:
             yt = YouTube(self.url)
@@ -28,7 +28,7 @@ class YoutubeThread(qt2.QRunnable):
         except Exception as e:
             print(e)
             self.objects.Finish.emit(False)
-class dialog(qt.QDialog):
+class HighQualityAudioDownloadDialog(qt.QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("تنزيل الفيديو كصوت بأعلى جودة")
@@ -63,6 +63,12 @@ class dialog(qt.QDialog):
         if file.exec() == qt.QFileDialog.DialogCode.Accepted:
             self.التعديل.setText(file.selectedFiles()[0])
     def dl(self):
+        if not self.الرابط.text():
+            qt.QMessageBox.warning(self, "تنبيه", "الرجاء إدخال رابط الفيديو")
+            return
+        if not self.التعديل.text():
+            qt.QMessageBox.warning(self, "تنبيه", "الرجاء تحديد مكان الحفظ")
+            return
         qt.QMessageBox.information(self, "تنبيه", "لقد بدأ التحميل الآن، الرجاء الانتظار حتى يتم التحميل")
         self.التحميل.setDisabled(True)
         thread = YoutubeThread(self.الرابط.text(), self.التعديل.text(), self.progress_bar)

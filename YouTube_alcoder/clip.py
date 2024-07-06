@@ -18,10 +18,10 @@ class dialog(qt.QDialog):
     def ch(self):
         العناصر=self.الخيارات.currentRow()
         if العناصر==0:
-            Audio_high_quality.dialog(self).exec()
+            Audio_high_quality.HighQualityAudioDownloadDialog(self).exec()
         elif العناصر==1:
-            Audio_low_quality.dialog(self).exec()
+            Audio_low_quality.LowQualityAudioDownloadDialog(self).exec()
         elif العناصر==2:
-            Video_high_quality.dialog(self).exec()
+            Video_high_quality.HighQualityVideoDownloadDialog(self).exec()
         elif العناصر==3:
-            Video_low_quality.dialog(self).exec()
+            Video_low_quality.LowQualityVideoDownloadDialog(self).exec()

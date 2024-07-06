@@ -69,6 +69,12 @@ class dialog(qt.QDialog):
         if file.exec() == qt.QFileDialog.DialogCode.Accepted:
             self.التعديل.setText(file.selectedFiles()[0])
     def dl(self):
+        if not self.الرابط.text():
+            qt.QMessageBox.warning(self, "تنبيه", "الرجاء إدخال رابط القائمة")
+            return
+        if not self.التعديل.text():
+            qt.QMessageBox.warning(self, "تنبيه", "الرجاء تحديد مكان الحفظ")
+            return
         qt.QMessageBox.information(self, "تنبيه", "لقد بدأ التحميل الآن، الرجاء الانتظار حتى يتم التحميل")
         self.التحميل.setDisabled(True)        
         self.thread = YoutubeThread(self.الرابط.text(), self.التعديل.text(), self.progress_bar)

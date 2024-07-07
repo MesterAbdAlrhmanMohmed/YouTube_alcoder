@@ -37,6 +37,7 @@ class DescriptionWindow(qt.QDialog):
         qt1.QShortcut("a",self).activated.connect(self.copy_all)
         qt1.QShortcut("c",self).activated.connect(self.copy_selected_line)
         self.الوصف=qt.QListWidget()        
+        self.الوصف.setAccessibleName("الوصف")
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.الوصف)
     def load_description_threaded(self):

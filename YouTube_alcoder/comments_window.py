@@ -36,6 +36,7 @@ class CommentsWindow(qt.QDialog):
         qt1.QShortcut("escape", self).activated.connect(lambda: qt.QMessageBox.warning(self, "تنبيه", "للخروج إستخدم إختصار alt + F4"))
         qt1.QShortcut("c",self).activated.connect(self.copy_selected_line)
         self.comments_list=qt.QListWidget()        
+        self.comments_list.setAccessibleName("التعليقات")
         layout=qt.QVBoxLayout(self)
         layout.addWidget(self.comments_list)        
         self.setLayout(layout)

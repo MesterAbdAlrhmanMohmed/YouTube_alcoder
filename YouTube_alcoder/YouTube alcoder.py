@@ -70,20 +70,20 @@ class tab1(qt.QWidget):
         layout.addWidget(self.النتيجة)
         self.setLayout(layout)    
     def player(self, position):
-        القائمة = qt.QMenu(self)
-        فئة_البحث = self.الفئة.currentText()
+        القائمة=qt.QMenu(self)
+        فئة_البحث=self.الفئة.currentText()
         if فئة_البحث == "الفيديوهات":
-            فيديو = القائمة.addAction("تشغيل كفيديو بأعلى جودة")
-            صوت = القائمة.addAction("تشغيل كصوت بأعلى جودة")
-            فيديو_ضعيف = القائمة.addAction("تشغيل كفيديو بأقل جودة")
-            صوت_ضعيف = القائمة.addAction("تشغيل كصوت بأقل جودة")
-            تنزيل_فيديو = القائمة.addAction("تنزيل كفيديو بأعلى جودة")
-            تنزيل_صوت = القائمة.addAction("تنزيل كصوت بأعلى جودة")
-            تنزيل_فيديو_ضعيف = القائمة.addAction("تنزيل كفيديو بأقل جودة")
-            تنزيل_صوت_ضعيف = القائمة.addAction("تنزيل كصوت بأقل جودة")
-            رابط = القائمة.addAction("نسخ الرابط")
-            الوصف = القائمة.addAction("عرض الوصف")
-            التعليقات = القائمة.addAction("عرض التعليقات")
+            فيديو=القائمة.addAction("تشغيل كفيديو بأعلى جودة")
+            صوت=القائمة.addAction("تشغيل كصوت بأعلى جودة")
+            فيديو_ضعيف=القائمة.addAction("تشغيل كفيديو بأقل جودة")
+            صوت_ضعيف=القائمة.addAction("تشغيل كصوت بأقل جودة")
+            تنزيل_فيديو=القائمة.addAction("تنزيل كفيديو بأعلى جودة")
+            تنزيل_صوت=القائمة.addAction("تنزيل كصوت بأعلى جودة")
+            تنزيل_فيديو_ضعيف=القائمة.addAction("تنزيل كفيديو بأقل جودة")
+            تنزيل_صوت_ضعيف=القائمة.addAction("تنزيل كصوت بأقل جودة")
+            رابط=القائمة.addAction("نسخ الرابط")
+            الوصف=القائمة.addAction("عرض الوصف")
+            التعليقات=القائمة.addAction("عرض التعليقات")
             فيديو.triggered.connect(lambda: self.open_window('high_quality_video'))
             صوت.triggered.connect(lambda: self.open_window('high_quality_audio'))
             فيديو_ضعيف.triggered.connect(lambda: self.open_window('low_quality_video'))
@@ -96,12 +96,12 @@ class tab1(qt.QWidget):
             تنزيل_فيديو_ضعيف.triggered.connect(lambda: self.download_video_low_quality())
             تنزيل_صوت_ضعيف.triggered.connect(lambda: self.download_audio_low_quality())
         elif فئة_البحث == "قوائم التشغيل":
-            رابط_القائمة = القائمة.addAction("نسخ رابط قائمة التشغيل")
-            فتح_القائمة = القائمة.addAction("عرض فيديوهات قائمة التشغيل")
-            تنزيل_فيديو_قائمة = القائمة.addAction("تنزيل قائمة التشغيل كفيديو بأعلى جودة")
-            تنزيل_صوت_قائمة = القائمة.addAction("تنزيل قائمة التشغيل كصوت بأعلى جودة")
-            تنزيل_فيديو_قائمة_ضعيف = القائمة.addAction("تنزيل قائمة التشغيل كفيديو بأقل جودة")            
-            تنزيل_صوت_قائمة_ضعيف = القائمة.addAction("تنزيل قائمة التشغيل كصوت بأقل جودة")
+            رابط_القائمة=القائمة.addAction("نسخ رابط قائمة التشغيل")
+            فتح_القائمة=القائمة.addAction("عرض فيديوهات قائمة التشغيل")
+            تنزيل_فيديو_قائمة=القائمة.addAction("تنزيل قائمة التشغيل كفيديو بأعلى جودة")
+            تنزيل_صوت_قائمة=القائمة.addAction("تنزيل قائمة التشغيل كصوت بأعلى جودة")
+            تنزيل_فيديو_قائمة_ضعيف=القائمة.addAction("تنزيل قائمة التشغيل كفيديو بأقل جودة")            
+            تنزيل_صوت_قائمة_ضعيف=القائمة.addAction("تنزيل قائمة التشغيل كصوت بأقل جودة")
             رابط_القائمة.triggered.connect(self.copy_link)
             فتح_القائمة.triggered.connect(lambda: self.open_playlist_videos(self.get_selected_item_link()))
             تنزيل_فيديو_قائمة.triggered.connect(lambda: self.download_playlist_video_high_quality())
@@ -112,85 +112,85 @@ class tab1(qt.QWidget):
     def handle_error(self, error):
         qt.QMessageBox.warning(self, "تنبيه", f"حدث خطأ: {error}")
     def results(self):
-        self.next_page_token = None
+        self.next_page_token=None
         self.النتيجة.clear()
         self.النتيجة.setFocus()
         self.load_more_results()
     def download_playlist_video_high_quality(self):
-        url = self.get_selected_item_link()
+        url=self.get_selected_item_link()
         if not url:
             return
-        dlg = Playlist_video_high_quality.dialog()
+        dlg=Playlist_video_high_quality.dialog()
         dlg.الرابط.setText(url)
         dlg.exec()
     def download_playlist_video_low_quality(self):
-        url = self.get_selected_item_link()
+        url=self.get_selected_item_link()
         if not url:
             return
-        dlg = Playlist_video_low_quality.dialog()
+        dlg=Playlist_video_low_quality.dialog()
         dlg.الرابط.setText(url)
         dlg.exec()
     def download_playlist_audio_high_quality(self):
-        url = self.get_selected_item_link()
+        url=self.get_selected_item_link()
         if not url:
             return
-        dlg = Playlist_audio_high_quality.dialog()
+        dlg=Playlist_audio_high_quality.dialog()
         dlg.الرابط.setText(url)
         dlg.exec()
     def download_playlist_audio_low_quality(self):
-        url = self.get_selected_item_link()
+        url=self.get_selected_item_link()
         if not url:
             return
-        dlg = Playlist_audio_low_quality.dialog()
+        dlg=Playlist_audio_low_quality.dialog()
         dlg.الرابط.setText(url)
         dlg.exec()
     def download_video_high_quality(self):
-        url = self.get_selected_item_link()
+        url=self.get_selected_item_link()
         if not url:
             return
-        dlg =Video_high_quality. HighQualityVideoDownloadDialog()
+        dlg=Video_high_quality. HighQualityVideoDownloadDialog()
         dlg.الرابط.setText(url)
         dlg.exec()
     def download_video_low_quality(self):
-        url = self.get_selected_item_link()
+        url=self.get_selected_item_link()
         if not url:
             return
-        dlg =Video_low_quality. LowQualityVideoDownloadDialog()
+        dlg=Video_low_quality. LowQualityVideoDownloadDialog()
         dlg.الرابط.setText(url)
         dlg.exec()
     def download_audio_high_quality(self):
-        url = self.get_selected_item_link()
+        url=self.get_selected_item_link()
         if not url:
             return
-        dlg =Audio_high_quality. HighQualityAudioDownloadDialog()
+        dlg=Audio_high_quality. HighQualityAudioDownloadDialog()
         dlg.الرابط.setText(url)
         dlg.exec()
     def download_audio_low_quality(self):
-        url = self.get_selected_item_link()
+        url=self.get_selected_item_link()
         if not url:
             return
-        dlg =Audio_low_quality. LowQualityAudioDownloadDialog()
+        dlg=Audio_low_quality. LowQualityAudioDownloadDialog()
         dlg.الرابط.setText(url)
         dlg.exec()
     def load_more_results(self):
         if self.النتيجة.verticalScrollBar().value() == self.النتيجة.verticalScrollBar().maximum():
-            self.thread = WorkerThread(self._load_more_results)
+            self.thread=WorkerThread(self._load_more_results)
             self.thread.result_signal.connect(self.handle_results)
             self.thread.error_signal.connect(self.handle_error)
             self.thread.start()
     def _load_more_results(self):
         try:
-            نتيجة_البحث = self.البحث.text()
-            فئة_البحث = self.الفئة.currentText()
+            نتيجة_البحث=self.البحث.text()
+            فئة_البحث=self.الفئة.currentText()
             if not نتيجة_البحث:
                 raise ValueError("يرجى إدخال كلمات للبحث")
             if فئة_البحث == "الفيديوهات":
-                search = ytsearch.VideosSearch(نتيجة_البحث, limit=20)
+                search=ytsearch.VideosSearch(نتيجة_البحث, limit=20)
             elif فئة_البحث == "قوائم التشغيل":
-                search = ytsearch.PlaylistsSearch(نتيجة_البحث, limit=20)            
-            النتائج = []
+                search=ytsearch.PlaylistsSearch(نتيجة_البحث, limit=20)            
+            النتائج=[]
             for صفحة in range(10):
-                if صفحة > 0:
+                if صفحة>0:
                     search.next()                    
                 النتائج.extend(search.result()['result'])
             return النتائج
@@ -198,43 +198,43 @@ class tab1(qt.QWidget):
             raise e
     def handle_results(self, النتائج):
         try:
-            فئة_البحث = self.الفئة.currentText()
+            فئة_البحث=self.الفئة.currentText()
             for عنصر in النتائج:
                 if فئة_البحث == "الفيديوهات":
-                    title = عنصر['title']
-                    duration = عنصر.get('duration', 'No duration available')
-                    views = عنصر.get('viewCount', {}).get('text', 'No views available')
-                    channel_name = عنصر['channel'].get('name', 'No channel name available')
-                    link = عنصر['link']
-                    item = f"{title} - المدة {duration} - {channel_name} - {views}"
-                    item_obj = qt.QListWidgetItem(item)
+                    title=عنصر['title']
+                    duration=عنصر.get('duration', 'No duration available')
+                    views=عنصر.get('viewCount', {}).get('text', 'No views available')
+                    channel_name=عنصر['channel'].get('name', 'No channel name available')
+                    link=عنصر['link']
+                    item=f"{title} - المدة {duration} - {channel_name} - {views}"
+                    item_obj=qt.QListWidgetItem(item)
                     item_obj.setData(qt2.Qt.ItemDataRole.UserRole, link)
                     self.النتيجة.addItem(item_obj)
                 elif فئة_البحث == "قوائم التشغيل":
-                    title = عنصر['title']
-                    video_count = عنصر.get('videoCount', 'No video count available')
-                    channel_name = عنصر['channel'].get('name', 'No channel name available')
-                    link = عنصر['link']
-                    item = f"{title} - {video_count} - {channel_name}"
-                    item_obj = qt.QListWidgetItem(item)
+                    title=عنصر['title']
+                    video_count=عنصر.get('videoCount', 'No video count available')
+                    channel_name=عنصر['channel'].get('name', 'No channel name available')
+                    link=عنصر['link']
+                    item=f"{title} - {video_count} - {channel_name}"
+                    item_obj=qt.QListWidgetItem(item)
                     item_obj.setData(qt2.Qt.ItemDataRole.UserRole, link)
                     self.النتيجة.addItem(item_obj)                
         except Exception as e:
             qt.QMessageBox.warning(self, "تنبيه", f"حدث خطأ أثناء عرض النتائج: {e}")
     def record_and_recognize(self):
-        self.thread = WorkerThread(self._record_and_recognize)
+        self.thread=WorkerThread(self._record_and_recognize)
         self.thread.result_signal.connect(self.handle_recognition_result)
         self.thread.error_signal.connect(self.handle_error)
         self.thread.start()
     def _record_and_recognize(self):
-        lang = dic.languages[self.اللغة.currentText()]
-        التعرف = sr.Recognizer()
+        lang=dic.languages[self.اللغة.currentText()]
+        التعرف=sr.Recognizer()
         with sr.Microphone() as source:
             winsound.PlaySound("data/1.wav", winsound.SND_FILENAME)
-            الصوت = التعرف.listen(source)
+            الصوت=التعرف.listen(source)
             try:
                 winsound.PlaySound("data/2.wav", winsound.SND_FILENAME)
-                النص = التعرف.recognize_google(الصوت, language=lang)
+                النص=التعرف.recognize_google(الصوت, language=lang)
                 return النص
             except sr.UnknownValueError:
                 raise ValueError("لم أستطع فهم الصوت")
@@ -244,48 +244,48 @@ class tab1(qt.QWidget):
         self.البحث.setText(النص)
         self.البحث.setFocus()    
     def show_video_description(self):
-        video_url = self.get_selected_item_link()
+        video_url=self.get_selected_item_link()
         if not video_url:
             return
-        description_window = DescriptionWindow(video_url)
+        description_window=DescriptionWindow(video_url)
         description_window.exec()
     def open_playlist_videos(self, playlist_url):
-        playlist_videos_window = PlaylistVideosWindow(playlist_url)
+        playlist_videos_window=PlaylistVideosWindow(playlist_url)
         playlist_videos_window.exec()    
     def open_window(self, window_type):
         url = self.get_selected_item_link()
         if not url:
             return
-        if window_type == 'high_quality_video':
-            self.video_window = HighQualityVideoWindow(url)
+        if window_type=='high_quality_video':
+            self.video_window=HighQualityVideoWindow(url)
             self.video_window.exec()
-        elif window_type == 'high_quality_audio':
-            self.audio_window = HighQualityAudioWindow(url)
+        elif window_type=='high_quality_audio':
+            self.audio_window=HighQualityAudioWindow(url)
             self.audio_window.exec()
-        elif window_type == 'low_quality_video':
-            self.low_video_window = LowQualityVideoWindow(url)
+        elif window_type=='low_quality_video':
+            self.low_video_window=LowQualityVideoWindow(url)
             self.low_video_window.exec()
-        elif window_type == 'low_quality_audio':
-            self.low_audio_window = LowQualityAudioWindow(url)
+        elif window_type=='low_quality_audio':
+            self.low_audio_window=LowQualityAudioWindow(url)
             self.low_audio_window.exec()
     def show_comments_window(self):
-        video_url = self.get_selected_item_link()
+        video_url=self.get_selected_item_link()
         if not video_url:
             return
-        comments_window = CommentsWindow(video_url)
+        comments_window=CommentsWindow(video_url)
         comments_window.exec()    
     def get_selected_item_link(self):
         try:
-            selected_item = self.النتيجة.currentItem()
-            url = selected_item.data(qt2.Qt.ItemDataRole.UserRole)
+            selected_item=self.النتيجة.currentItem()
+            url=selected_item.data(qt2.Qt.ItemDataRole.UserRole)
             return url
         except Exception:
             qt.QMessageBox.warning(self, "تنبيه", "لم يتم تحديد عنصر")
             return None
     def copy_link(self):
         try:
-            selected_item = self.النتيجة.currentItem()
-            url = selected_item.data(qt2.Qt.ItemDataRole.UserRole)
+            selected_item=self.النتيجة.currentItem()
+            url=selected_item.data(qt2.Qt.ItemDataRole.UserRole)
             pyperclip.copy(url)
             qt.QMessageBox.information(self, "تم", "تم نسخ الرابط بنجاح")
         except Exception:
@@ -356,7 +356,7 @@ class tab2(qt.QWidget):
             Video=DescriptionWindow(url)
             Video.exec()
         else:
-            qt.QMessageBox.warning(self,"تنبيه","الرجاء إدخال رابط الفيديو")
+            qt.QMessageBox.warning(self,"تنبيه","الرجاء إدخال رابط فيديو أو قائمة تشغيل")
     def CO(self):
         url=self.فيديو_التعليقات.text()
         if url:

@@ -3,21 +3,21 @@ from PyQt6 import QtGui as qt1
 from PyQt6 import QtCore as qt2
 from pytube import Playlist, YouTube
 class YoutubeObjects(qt2.QObject):
-    Finish = qt2.pyqtSignal(bool)
+    Finish=qt2.pyqtSignal(bool)
 class YoutubeThread(qt2.QRunnable):
     def __init__(self, url, path, progress_bar):
         super().__init__()
-        self.objects = YoutubeObjects()
-        self.url = url
-        self.path = path
-        self.progress_bar = progress_bar
+        self.objects=YoutubeObjects()
+        self.url=url
+        self.path=path
+        self.progress_bar=progress_bar
     def run(self):
         try:
-            playlist = Playlist(self.url)
+            playlist=Playlist(self.url)
             if not playlist.video_urls:
                 raise Exception("This is not a playlist")
-            total_videos = len(playlist.video_urls)
-            current_video = 0
+            total_videos=len(playlist.video_urls)
+            current_video=0
             for video_url in playlist.video_urls:
                 try:
                     self.download_audio(video_url)
@@ -30,31 +30,31 @@ class YoutubeThread(qt2.QRunnable):
             print(e)
             self.objects.Finish.emit(False)
     def download_audio(self, video_url):
-        yt = YouTube(video_url)
-        stream = yt.streams.filter(only_audio=True).order_by('abr').desc().first()
+        yt=YouTube(video_url)
+        stream=yt.streams.filter(only_audio=True).order_by('abr').desc().first()
         stream.download(output_path=self.path)
 class dialog(qt.QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("تنزيل قائمة التشغيل كصوت بأعلى جودة")
-        self.حفظ = qt.QPushButton("تحديد مكان الحفظ أولاً (O)")
+        self.حفظ=qt.QPushButton("تحديد مكان الحفظ أولاً (O)")
         self.حفظ.setShortcut("o")
         self.حفظ.setDefault(True)
         self.حفظ.clicked.connect(self.opinFile)
-        self.إظهار1 = qt.QLabel("مسار الحفظ")
-        self.التعديل = qt.QLineEdit()
+        self.إظهار1=qt.QLabel("مسار الحفظ")
+        self.التعديل=qt.QLineEdit()
         self.التعديل.setReadOnly(True)
         self.التعديل.setAccessibleName("مسار الحفظ")
-        self.إظهار3 = qt.QLabel("إدخال الرابط هنا")
-        self.الرابط = qt.QLineEdit()
+        self.إظهار3=qt.QLabel("إدخال الرابط هنا")
+        self.الرابط=qt.QLineEdit()
         self.الرابط.setAccessibleName("إدخال الرابط هنا")
-        self.التحميل = qt.QPushButton("بدء التحميل (D)")
+        self.التحميل=qt.QPushButton("بدء التحميل (D)")
         self.التحميل.setDefault(True)
         self.التحميل.setShortcut("d")
         self.التحميل.clicked.connect(self.dl)
-        self.progress_bar = qt.QProgressBar()
+        self.progress_bar=qt.QProgressBar()
         self.progress_bar.setValue(0)
-        layout = qt.QVBoxLayout(self)
+        layout=qt.QVBoxLayout(self)
         layout.addWidget(self.حفظ)
         layout.addWidget(self.إظهار1)
         layout.addWidget(self.التعديل)
@@ -63,7 +63,7 @@ class dialog(qt.QDialog):
         layout.addWidget(self.الرابط)
         layout.addWidget(self.التحميل)
     def opinFile(self):
-        file_dialog = qt.QFileDialog()
+        file_dialog=qt.QFileDialog()
         file_dialog.setFileMode(qt.QFileDialog.FileMode.Directory)
         if file_dialog.exec() == qt.QFileDialog.DialogCode.Accepted:
             self.التعديل.setText(file_dialog.selectedFiles()[0])
@@ -76,7 +76,7 @@ class dialog(qt.QDialog):
             return
         qt.QMessageBox.information(self, "تنبيه", "لقد بدأ التحميل الآن، الرجاء الانتظار حتى يتم التحميل")
         self.التحميل.setDisabled(True)
-        thread = YoutubeThread(self.الرابط.text(), self.التعديل.text(), self.progress_bar)
+        thread=YoutubeThread(self.الرابط.text(), self.التعديل.text(), self.progress_bar)
         thread.objects.Finish.connect(self.onFinish)
         qt2.QThreadPool(self).start(thread)
     def onFinish(self, state):

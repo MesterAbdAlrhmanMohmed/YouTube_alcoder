@@ -13,11 +13,11 @@ class YoutubeThread(qt2.QRunnable):
         self.progress_bar=progress_bar        
     def run(self):
         try:
-            playlist = Playlist(self.url)
+            playlist=Playlist(self.url)
             if not playlist.video_urls:
                 raise Exception("This is not a playlist")
-            total_videos = len(playlist.video_urls)
-            current_video = 0
+            total_videos=len(playlist.video_urls)
+            current_video=0
             for video_url in playlist.video_urls:                
                 try:
                     self.download_video(video_url)
@@ -30,30 +30,29 @@ class YoutubeThread(qt2.QRunnable):
             print(e)
             self.objects.Finish.emit(False)
     def download_video(self, video_url):
-        yt = YouTube(video_url)
-        stream = yt.streams.get_lowest_resolution()
-        output_path = self.path
+        yt=YouTube(video_url)
+        stream=yt.streams.get_lowest_resolution()        
         stream.download(output_path=self.path)
 class dialog(qt.QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("تنزيل قائمة التشغيل كفيديو بأقل جودة")        
-        self.حفظ = qt.QPushButton("تحديد مكان الحفظ أولاً (O)")
+        self.حفظ=qt.QPushButton("تحديد مكان الحفظ أولاً (O)")
         self.حفظ.setShortcut("o")
         self.حفظ.setDefault(True)
         self.حفظ.clicked.connect(self.opinFile)    
-        self.إظهار1 = qt.QLabel("مسار الحفظ")
-        self.التعديل = qt.QLineEdit()
+        self.إظهار1=qt.QLabel("مسار الحفظ")
+        self.التعديل=qt.QLineEdit()
         self.التعديل.setReadOnly(True)
         self.التعديل.setAccessibleName("مسار الحفظ")        
-        self.إظهار3 = qt.QLabel("إدخال الرابط هنا")
-        self.الرابط = qt.QLineEdit()
+        self.إظهار3=qt.QLabel("إدخال الرابط هنا")
+        self.الرابط=qt.QLineEdit()
         self.الرابط.setAccessibleName("إدخال الرابط هنا")        
-        self.التحميل = qt.QPushButton("بدء التحميل (D)")
+        self.التحميل=qt.QPushButton("بدء التحميل (D)")
         self.التحميل.setDefault(True)
         self.التحميل.setShortcut("d")
         self.التحميل.clicked.connect(self.dl)            
-        self.progress_bar = qt.QProgressBar()
+        self.progress_bar=qt.QProgressBar()
         self.progress_bar.setValue(0)        
         l=qt.QVBoxLayout(self)
         l.addWidget(self.حفظ)
@@ -64,7 +63,7 @@ class dialog(qt.QDialog):
         l.addWidget(self.الرابط)
         l.addWidget(self.التحميل)        
     def opinFile(self):
-        file = qt.QFileDialog()
+        file=qt.QFileDialog()
         file.setFileMode(qt.QFileDialog.FileMode.Directory)
         if file.exec() == qt.QFileDialog.DialogCode.Accepted:
             self.التعديل.setText(file.selectedFiles()[0])
@@ -77,7 +76,7 @@ class dialog(qt.QDialog):
             return
         qt.QMessageBox.information(self, "تنبيه", "لقد بدأ التحميل الآن، الرجاء الانتظار حتى يتم التحميل")
         self.التحميل.setDisabled(True)        
-        self.thread = YoutubeThread(self.الرابط.text(), self.التعديل.text(), self.progress_bar)
+        self.thread=YoutubeThread(self.الرابط.text(), self.التعديل.text(), self.progress_bar)
         self.thread.objects.Finish.connect(self.onFinish)
         qt2.QThreadPool(self).start(self.thread)
     def onFinish(self, state):

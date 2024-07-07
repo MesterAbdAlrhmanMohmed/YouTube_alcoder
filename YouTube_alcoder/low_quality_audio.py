@@ -34,7 +34,7 @@ class LowQualityAudioWindow(qt.QDialog):
         qt1.QShortcut("ctrl+9", self).activated.connect(self.t90)
         qt1.QShortcut("shift+up", self).activated.connect(self.increase_volume)
         qt1.QShortcut("shift+down", self).activated.connect(self.decrease_volume)        
-        self.التقدم = qt.QSlider(qt2.Qt.Orientation.Horizontal)                        
+        self.التقدم=qt.QSlider(qt2.Qt.Orientation.Horizontal)                        
         self.التقدم.setRange(0,100)
         self.التقدم.setAccessibleName("االوقت المنقضي")
         self.mp.durationChanged.connect(self.update_slider)
@@ -51,7 +51,7 @@ class LowQualityAudioWindow(qt.QDialog):
         self.close()
         self.mp.stop()
     def play_audio(self, url):
-        ydl_opts = {
+        ydl_opts={
             'format': 'worstaudio',
         }
         try:

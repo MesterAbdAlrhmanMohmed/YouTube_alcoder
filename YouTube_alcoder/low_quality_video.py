@@ -60,8 +60,8 @@ class LowQualityVideoWindow(qt.QDialog):
         }
         try:
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info_dict = ydl.extract_info(url, download=False)
-                video_url = info_dict['url']
+                info_dict=ydl.extract_info(url, download=False)
+                video_url=info_dict['url']
                 self.mp.setSource(qt2.QUrl(video_url))
                 self.mp.play()
         except Exception as e:

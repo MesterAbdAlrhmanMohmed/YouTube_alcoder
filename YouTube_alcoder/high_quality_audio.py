@@ -52,7 +52,7 @@ class HighQualityAudioWindow(qt.QDialog):
         self.mp.stop()
     def play_audio(self, url):
         ydl_opts={
-            'format': 'worstaudio',
+            'format': 'bestaudio',
         }
         try:
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:

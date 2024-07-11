@@ -8,7 +8,6 @@ from low_quality_video import LowQualityVideoWindow
 from high_quality_video import HighQualityVideoWindow
 from low_quality_audio import LowQualityAudioWindow
 from high_quality_audio import HighQualityAudioWindow
-from pytube import YouTube
 import Playlist_audio_high_quality,Playlist_audio_low_quality,Playlist_video_high_quality,Playlist_video_low_quality
 import Video_high_quality,Video_low_quality,Audio_high_quality,Audio_low_quality
 import youtubesearchpython, about,pyperclip,pytube,yt_dlp,dic,winsound,subtitle,Playlist,clip

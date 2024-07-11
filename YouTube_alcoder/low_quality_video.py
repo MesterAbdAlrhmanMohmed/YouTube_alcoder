@@ -3,7 +3,7 @@ from PyQt6 import QtGui as qt1
 from PyQt6 import QtCore as qt2
 from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PyQt6.QtMultimediaWidgets import QVideoWidget
-import yt_dlp    
+import yt_dlp
 class LowQualityVideoWindow(qt.QDialog):
     def __init__(self, url):
         super().__init__()
@@ -107,8 +107,11 @@ class LowQualityVideoWindow(qt.QDialog):
         new_volume=current_volume-0.10
         self.ao.setVolume(new_volume)        
     def update_slider(self):
-        self.التقدم.setValue(int((self.mp.position()/self.mp.duration())*100))
-        self.time_VA()
+        try:
+            self.التقدم.setValue(int((self.mp.position()/self.mp.duration())*100))
+            self.time_VA()
+        except:
+            self.المدة.setText("خطأ في الحصول على مدة المقطع, ربما هو بث مباشر")
     def time_VA(self):
         position=self.mp.position()
         duration=self.mp.duration()

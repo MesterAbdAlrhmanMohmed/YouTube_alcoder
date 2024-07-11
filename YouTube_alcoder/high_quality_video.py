@@ -107,8 +107,11 @@ class HighQualityVideoWindow(qt.QDialog):
         new_volume=current_volume-0.10
         self.ao.setVolume(new_volume)        
     def update_slider(self):
-        self.التقدم.setValue(int((self.mp.position()/self.mp.duration())*100))
-        self.time_VA()
+        try:
+            self.التقدم.setValue(int((self.mp.position()/self.mp.duration())*100))
+            self.time_VA()
+        except:
+            self.المدة.setText("خطأ في الحصول على مدة المقطع, ربما هو بث مباشر")
     def time_VA(self):
         position=self.mp.position()
         duration=self.mp.duration()

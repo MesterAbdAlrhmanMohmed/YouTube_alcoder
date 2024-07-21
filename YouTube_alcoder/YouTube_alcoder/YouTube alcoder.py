@@ -438,7 +438,7 @@ class tab4(qt.QWidget):
 class main(qt.QMainWindow):
     def __init__(self):
         super().__init__()
-        self.showFullScreen()
+        self.setGeometry(100, 100, 800, 600)
         self.setWindowTitle("YouTube alcoder")
         self.التاب = qt.QTabWidget()
         self.التاب.setAccessibleName("الخيارات")

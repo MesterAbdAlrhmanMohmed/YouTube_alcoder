@@ -5,7 +5,7 @@ import webbrowser
 class dialog(qt.QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.showFullScreen()
+        self.setGeometry(100, 100, 800, 600)
         self.setWindowTitle("عن المطور")
         self.القائمة=qt.QListWidget()
         self.القائمة.clicked.connect(self.about)

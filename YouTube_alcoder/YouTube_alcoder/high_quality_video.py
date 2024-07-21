@@ -3,7 +3,7 @@ from PyQt6 import QtGui as qt1
 from PyQt6 import QtCore as qt2
 from PyQt6.QtMultimedia import QMediaPlayer, QAudioOutput
 from PyQt6.QtMultimediaWidgets import QVideoWidget
-import yt_dlp    
+import yt_dlp
 class HighQualityVideoWindow(qt.QDialog):
     def __init__(self, url):
         super().__init__()

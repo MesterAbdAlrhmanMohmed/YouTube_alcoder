@@ -1,7 +1,7 @@
 from PyQt6 import QtWidgets as qt
 from PyQt6 import QtGui as qt1
 from PyQt6 import QtCore as qt2
-from pytube import YouTube
+from yt_dlp import YoutubeDL
 import requests
 class YoutubeObjects(qt2.QObject):
     Finish=qt2.pyqtSignal(bool)
@@ -14,22 +14,28 @@ class YoutubeThread(qt2.QRunnable):
         self.progress_bar=progress_bar
     def run(self):
         try:
-            yt=YouTube(self.url)
-            stream=yt.streams.get_lowest_resolution()
-            file_size=stream.filesize
-            response=requests.get(stream.url, stream=True)
-            with open(self.path + '/' + yt.title + '.mp4', 'wb') as file:
-                for data in response.iter_content(chunk_size=4096):
+            ydl_opts={
+                'format': 'bestaudio/best',
+                'quiet': True,
+            }
+            with YoutubeDL(ydl_opts) as ydl:
+                info_dict=ydl.extract_info(self.url, download=False)
+                audio_url=info_dict['url']                
+            response=requests.get(audio_url, stream=True)
+            total_size=int(response.headers.get('content-length', 0))
+            block_size=1024
+            with open(self.path + '/' + info_dict['title'] + '.mp3', 'wb') as file:
+                for data in response.iter_content(block_size):
                     file.write(data)
-                    self.progress_bar.setValue(file.tell() * 100 // file_size)
+                    self.progress_bar.setValue(file.tell() * 100 // total_size)
             self.objects.Finish.emit(True)
         except Exception as e:
             print(e)
             self.objects.Finish.emit(False)
-class LowQualityVideoDownloadDialog(qt.QDialog):
+class HighQualityAudioDownloadDialog(qt.QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowTitle("تنزيل فيديو بأقل جودة")
+        self.setWindowTitle("تنزيل الفيديو كصوت بأعلى جودة")
         self.حفظ=qt.QPushButton("تحديد مكان الحفظ أولاً (O)")
         self.حفظ.setShortcut("o")
         self.حفظ.setDefault(True)
@@ -56,10 +62,10 @@ class LowQualityVideoDownloadDialog(qt.QDialog):
         l.addWidget(self.الرابط)
         l.addWidget(self.التحميل)
     def opinFile(self):
-        file_dialog=qt.QFileDialog()
-        file_dialog.setFileMode(qt.QFileDialog.FileMode.Directory)
-        if file_dialog.exec() == qt.QFileDialog.DialogCode.Accepted:
-            self.التعديل.setText(file_dialog.selectedFiles()[0])
+        file=qt.QFileDialog()
+        file.setFileMode(qt.QFileDialog.FileMode.Directory)
+        if file.exec() == qt.QFileDialog.DialogCode.Accepted:
+            self.التعديل.setText(file.selectedFiles()[0])
     def dl(self):
         if not self.الرابط.text():
             qt.QMessageBox.warning(self, "تنبيه", "الرجاء إدخال رابط الفيديو")

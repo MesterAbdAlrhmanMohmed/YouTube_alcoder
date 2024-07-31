@@ -1,7 +1,7 @@
 from PyQt6 import QtWidgets as qt
 from PyQt6 import QtGui as qt1
 from PyQt6 import QtCore as qt2
-from pytube import YouTube
+from yt_dlp import YoutubeDL
 import requests
 class YoutubeObjects(qt2.QObject):
     Finish=qt2.pyqtSignal(bool)
@@ -14,14 +14,21 @@ class YoutubeThread(qt2.QRunnable):
         self.progress_bar=progress_bar
     def run(self):
         try:
-            yt=YouTube(self.url)
-            stream=yt.streams.get_highest_resolution()
-            file_size=stream.filesize
-            response=requests.get(stream.url, stream=True)
-            with open(self.path + '/' + yt.title + '.mp4', 'wb') as file:
-                for data in response.iter_content(chunk_size=4096):
+            ydl_opts={
+                'format': 'bestvideo+bestaudio/best',
+                'quiet': True,
+            }
+            with YoutubeDL(ydl_opts) as ydl:
+                info_dict=ydl.extract_info(self.url, download=False)
+                video_url=info_dict['url']
+                video_title=info_dict['title']
+            response=requests.get(video_url, stream=True)
+            total_size=int(response.headers.get('content-length', 0))
+            block_size=4096
+            with open(self.path + '/' + video_title + '.mp4', 'wb') as file:
+                for data in response.iter_content(block_size):
                     file.write(data)
-                    self.progress_bar.setValue(file.tell() * 100 // file_size)
+                    self.progress_bar.setValue(file.tell() * 100 // total_size)
             self.objects.Finish.emit(True)
         except Exception as e:
             print(e)

@@ -15,7 +15,7 @@ class YoutubeThread(qt2.QRunnable):
     def run(self):
         try:
             ydl_opts={
-                'format': 'bestvideo+bestaudio/best',
+                'format': 'best',
                 'quiet': True,
             }
             with YoutubeDL(ydl_opts) as ydl:

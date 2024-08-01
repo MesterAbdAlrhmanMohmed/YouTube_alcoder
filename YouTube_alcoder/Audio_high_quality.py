@@ -84,6 +84,6 @@ class HighQualityAudioDownloadDialog(qt.QDialog):
             self.التحميل.setDisabled(False)
             self.progress_bar.setValue(0)
         else:
-            qt.QMessageBox.warning(self, "تنبيه", "فشلت عملية التحميل، ربما تكون المشكلة من الرابط أو الإنترنت أو أنك نسيت تحديد مكان الحفظ")
+            qt.QMessageBox.warning(self, "تنبيه", "فشلت عملية التحميل، ربما تكون المشكلة من الرابط أو الإنترنت")
             self.التحميل.setDisabled(False)
             self.progress_bar.setValue(0)

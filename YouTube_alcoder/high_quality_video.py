@@ -51,6 +51,12 @@ class HighQualityVideoWindow(qt.QDialog):
         layout.addWidget(self.المدة)
         self.setLayout(layout)
         self.play_video(url)
+    def closeEvent(self, event):
+        self.close()
+        if self.mp.isPlaying():
+            self.mp.stop()
+        else:
+            pass
     def stop_exit(self):
         self.close()
         self.mp.stop()
